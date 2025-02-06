@@ -19,3 +19,34 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.custom-border {
+  position: relative;
+}
+
+.custom-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  height: 1px;
+  width: 200vw;
+  background-color: rgba(148, 163, 184, 0.05); /* gray-950/5 */
+  left: -100vw;
+}
+
+.custom-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  height: 1px;
+  width: 200vw;
+  background-color: rgba(148, 163, 184, 0.05); /* gray-950/5 */
+  left: -100vw;
+}
+
+@media (prefers-color-scheme: dark) {
+  .custom-border::before,
+  .custom-border::after {
+    background-color: rgba(255, 255, 255, 0.1); /* white/10 */
+  }
+}
