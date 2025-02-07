@@ -1,14 +1,17 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import SectionLayout from './SectionLayout';
-import { interestsData } from '@/utils/data/interests';
+import { gradients, interestsData } from '@/utils/data/interests';
+import gsap from 'gsap';
+import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
+
+gsap.registerPlugin(MotionPathPlugin);
 
 export default function Interests() {
   const containerRef = useRef<HTMLDivElement>(null);
   const divRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [svgDimensions, setSvgDimensions] = useState({ width: 0, height: 0 });
 
-  // Resize handler to update SVG dimensions
   useEffect(() => {
     if (!containerRef.current) return;
     const updateDimensions = () => {
@@ -22,27 +25,39 @@ export default function Interests() {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
+  useEffect(() => {
+    const timeline = gsap.timeline({ repeat: -1 });
+
+    gsap.utils.toArray('.animated-path').forEach((path, index) => {
+      const gradientPath = document.getElementById(`gradient-path-${index}`);
+      console.log(`Animating path ${index}`, { gradientPath, path });
+
+      if (!gradientPath || !path) return;
+
+      const pathLength = (path as SVGPathElement).getTotalLength();
+      console.log(`Path ${index} length:`, pathLength);
+
+      gsap.set(gradientPath, {
+        strokeDasharray: `${pathLength / 8} ${pathLength}`,
+        strokeDashoffset: pathLength,
+      });
+
+      timeline.to(
+        gradientPath,
+        {
+          strokeDashoffset: 0,
+          duration: 2,
+          ease: 'power2.inOut',
+        },
+        index * 2 // Stagger the animations by 2 seconds
+      );
+    });
+  }, [svgDimensions]);
+
   // Get dimensions for positioning
   const { width, height } = svgDimensions;
   const midX = width / 2;
   const branchY = (height / 2) * 0.35; // Branch halfway down before turning
-
-  // Color array for paths
-  const pathColors = ['#2EB9DF', '#FF7432', '#FF4A81', '#F7CC4B', '#9B59B6'];
-  const gradients = [
-    {
-      id: 'yellow-orange-gradient',
-      colors: ['#FFDD00', '#FF7432'], // Yellow to Orange
-    },
-    {
-      id: 'pink-purple-gradient',
-      colors: ['#FF4A81', '#9B59B6'], // Pink to Purple
-    },
-    {
-      id: 'blue-green-gradient',
-      colors: ['#2EB9DF', '#28A745'], // Blue to Green
-    },
-  ];
 
   return (
     <SectionLayout title="My Interests">
@@ -58,9 +73,10 @@ export default function Interests() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            {gradients.map((gradient, index) => (
+            {/* Gradient Definitions */}
+            {gradients.map((gradient) => (
               <linearGradient
-                key={index}
+                key={gradient.id}
                 id={gradient.id}
                 x1="0%"
                 y1="0%"
@@ -73,53 +89,68 @@ export default function Interests() {
             ))}
           </defs>
 
-          {/* Branches connecting to cards with dynamic colors */}
+          {/* Paths & Animated Gradient Strokes */}
           {interestsData.map((_, i) => {
             const div = divRefs.current[i];
-            if (!div) return null;
+            if (!div || !containerRef.current) return null;
             const rect = div.getBoundingClientRect();
-            const containerRect = containerRef.current?.getBoundingClientRect();
+            const containerRect = containerRef.current.getBoundingClientRect();
 
             // Get card center position relative to container
-            const endX =
-              rect.left + rect.width / 2 - (containerRect?.left || 0);
-            const endY = rect.top - (containerRect?.top || 0) + 64;
+            const endX = rect.left + rect.width / 2 - containerRect.left;
+            const endY = rect.top - containerRect.top + 64;
 
-            // Pick color for the current path from pathColors array
-            const color = pathColors[i % pathColors.length];
+            // Pick gradient for the moving stroke
+            const gradient = gradients[i % gradients.length];
 
-            // Combine the main vertical line with the horizontal branch
+            // Path Data
             const pathData = `M${midX} -${
               height / 2
             } V${branchY} H${endX} V${endY}`;
 
+            console.log(`Path ${i} data:`, pathData);
+
             return (
-              <path
-                key={i}
-                d={pathData}
-                stroke={color}
-                strokeOpacity="0.8"
-                strokeWidth="1"
-                strokeLinecap="round"
-                className="z-10"
-              />
+              <g key={i}>
+                {/* Static Gray Path */}
+                <path
+                  id={`path-${i}`}
+                  className="animated-path"
+                  d={pathData}
+                  stroke="rgb(28 25 23)"
+                  strokeOpacity="1"
+                  strokeWidth="1"
+                  strokeLinecap="round"
+                  fill="none"
+                />
+                {/* Moving Gradient Stroke */}
+                <path
+                  key={`gradient-path-${i}`}
+                  id={`gradient-path-${i}`}
+                  d={pathData}
+                  stroke={`url(#${gradient.id})`}
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                  fill="none"
+                  className="z-10"
+                />
+              </g>
             );
           })}
         </svg>
 
-        {/* Interest Cards */}
-        <div className="flex flex-wrap justify-center relative z-10">
+        <div className="flex overflow-auto justify-center relative z-10">
           {interestsData.map((interest, index) => (
             <div
               key={index}
               ref={(el) => {
                 divRefs.current[index] = el;
               }}
-              className="m-4 bg-bgDark border border-gray-500/20 pt-8 p-4 text-center h-60 w-64 flex flex-col items-center rounded-lg shadow-lg"
+              className="m-2 bg-polka-dots bg-[size:10px_10px] bg-fixed border border-stone-900 p-2 pt-4 text-center h-44 w-52 flex flex-col items-center shadow-lg"
             >
               {interest.icon}
-              <h3 className="text-xl font-semibold mb-2">{interest.title}</h3>
-              <p className="text-gray-300">{interest.description}</p>
+              <h3 className="text-md font-semibold my-2">{interest.title}</h3>
+              <p className="text-gray-300 text-sm">{interest.description}</p>
             </div>
           ))}
         </div>

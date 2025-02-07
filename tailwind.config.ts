@@ -15,6 +15,8 @@ export default {
           'repeating-linear-gradient(315deg, rgba(255, 255, 255, 0.15) 0px, rgba(255, 255, 255, 0.15) 1px, transparent 1px, transparent 10px)',
         'polka-dots':
           'radial-gradient(circle, rgba(255, 255, 255, 0.15) 1px, transparent 1px)',
+        'reverse-polka-dots':
+          'radial-gradient(circle, transparent 1px, rgba(10, 10, 10, 1) 1px)',
       },
       keyframes: {
         blob: {

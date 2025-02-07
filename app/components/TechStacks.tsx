@@ -81,7 +81,7 @@ const TechStacksSection = () => {
         {technologies.map((tech, index) => (
           <div
             key={index}
-            className="group flex flex-col w-32 h-32 items-center justify-center p-4 border border-gray-400/20 bg-polka-dots bg-[size:10px_10px] bg-fixed rounded-lg shadow-md hover:scale-105 transition-transform duration-300"
+            className="group flex flex-col w-32 h-32 items-center justify-center p-4 border border-stone-900 bg-polka-dots bg-[size:10px_10px] bg-fixed shadow-md transition-transform duration-300"
           >
             {tech.icon}
             <p className="mt-2 px-2 text-gray-300 group-hover:text-white transition-all">

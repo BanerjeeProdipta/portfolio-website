@@ -1,83 +1,69 @@
-import { FaGithub, FaLinkedin } from 'react-icons/fa';
-import { MdOutlineEmail, MdOutlineLocationOn, MdPhone } from 'react-icons/md';
+import { MdOutlineLocationOn } from 'react-icons/md';
 import SectionLayout from './SectionLayout';
+import { aboutMe } from '@/utils/data/aboutMe';
+import Link from 'next/link';
 
 const AboutMeSection = () => {
+  const { location, origin, contactLinks } = aboutMe;
+  const experienceYears = new Date().getFullYear() - 2020;
+
   return (
-    <SectionLayout
-      title="
-    About Me"
-    >
-      <div className="space-y-3 flex flex-col justify-center items-center">
-        <div className="flex justify-start text-left space-y-3 opacity-80">
-          <p className="leading-loose tracking-wide">
-            Hello World,
-            <br />
-            I’m a passionate{' '}
-            <span className="font-medium">software engineer</span> living in
-            <span className="text-primaryCyan font-medium">
-              <MdOutlineLocationOn className="inline-block ml-1" size={20} />
-              Sudbury, Ontario.
-            </span>{' '}
-            Originally from <span className="font-medium">Bangladesh</span>, I
-            completed my{' '}
-            <span className="text-primaryPurple">
-              BSc in Software Engineering
-            </span>{' '}
-            from Anhui University of Technology, China and am currently pursuing
-            an{' '}
-            <span className="text-primaryPurple">
-              MSc in Computational Science
-            </span>{' '}
-            at Laurentian University (expected graduation: April 2025).
-            <br />
-            Alongside my technical skills, I’m fluent in{' '}
-            <span className="text-primaryLime/90">
-              Chinese, Hindi, Bangla, and Urdu
+    <SectionLayout title="About Me">
+      <div className="flex flex-col items-center text-center space-y-8">
+        <div className="max-w-2xl text-gray-300 space-y-4 leading-relaxed">
+          <p>
+            Hey there! I’m a{' '}
+            <span className="font-semibold text-white">software engineer</span>{' '}
+            with {experienceYears} years of experience, blending
+            <span className="font-mono font-semibold text-primaryPurple">
+              {' '}
+              technical expertise{' '}
             </span>
-            , which helps me connect with diverse teams and global audiences.
+            with a{' '}
+            <span className="font-mono font-semibold text-primaryPurple">
+              creative spark
+            </span>{' '}
+            to craft clean, efficient, and maintainable solutions.
+          </p>
+          <p>
+            Originally from {origin}, Currently based in
+            <span className="inline-flex items-center -mt-2 mx-1">
+              <MdOutlineLocationOn
+                size={18}
+                className="text-primaryPurple mr-1"
+              />
+              {location}.
+            </span>
           </p>
         </div>
-        <p className="text-4xl">🚀</p>
-        <p className="italic max-w-xl py-6 leading-relaxed">
-          I’m looking for opportunities to gain hands-on experience, collaborate
-          with professionals, and solve real-world problems.
+
+        {/* Quote */}
+        <p className="italic max-w-lg px-6 text-gray-400">
+          “If there&apos;s a problem, there&apos;s always a solution—just a few
+          lines of code away.”
         </p>
-        <div className="relative group">
-          <div className="absolute inset-0 bg-gradient-to-t from-primaryCyan/5 group-hover:blur-sm duration-200 ease-in-out delay-75"></div>
-          <div className="relative z-10 flex flex-wrap text-xs md:text-sm md:flex-row space-y-2 md:space-y-0 items-center bg-polka-dots bg-[size:10px_10px] bg-fixed justify-around w-full text-white">
-            <a
-              href="mailto:asm.rahman.ashique@gmail.com"
-              className="flex items-center gap-2 text-gray-300 hover:bg-primaryCyan/20 hover:text-primaryCyan transition whitespace-nowrap px-4 py-2"
-            >
-              <MdOutlineEmail size={20} />
-              asm.rahman.ashique@gmail.com
-            </a>
-            <a
-              href="https://www.linkedin.com/in/asm-ashique/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-300 hover:bg-primaryCyan/20 hover:text-primaryCyan transition whitespace-nowrap px-4 py-2"
-            >
-              <FaLinkedin size={20} />
-              LinkedIn Profile
-            </a>
-            <a
-              href="tel:+17059217562"
-              className="flex items-center gap-2 text-gray-300 hover:bg-primaryCyan/20 hover:text-primaryCyan transition whitespace-nowrap px-4 py-2"
-            >
-              <MdPhone size={20} />
-              +1 (705) 921-7562
-            </a>
-            <a
-              href="https://github.com/RahmanAshique"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 text-gray-300 hover:bg-primaryCyan/20 hover:text-primaryCyan transition whitespace-nowrap px-4 py-2"
-            >
-              <FaGithub size={20} />
-              GitHub Profile
-            </a>
+        <p className="font-mono">
+          I am currently accepting freelance work, so don’t hesitate to{' '}
+          <button className="bg-lime-300/10 inline-block text-lime-400 px-2 py-1">
+            get in touch
+          </button>
+        </p>
+
+        {/* Buttons with the blob effect */}
+        <div className="relative group border border-stone-900 group-hover:invert transition duration-300 bg-gradient-to-t from-lime-300 to-transparent p-[0.5px] ease-linear delay-75">
+          <div className="relative z-10 bg-polka-dots bg-[size:10px_10px] bg-fixed bg-bgDark flex flex-wrap text-xs md:text-sm md:flex-row space-y-2 md:space-y-0 hover:text-lime-300 items-center justify-around w-full text-gray-800">
+            {contactLinks.map(({ href, icon: Icon, label }) => (
+              <Link
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-gray-300 transition whitespace-nowrap px-4 py-2 hover:text-lime-300"
+              >
+                <Icon size={20} />
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
