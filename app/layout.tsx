@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     siteName: 'Prodipta Banerjee Portfolio',
     images: [
       {
-        url: 'https://banerjee-prodipta.vercel.app/og-image.png', // Update this with a valid image URL
+        url: 'https://banerjee-prodipta.vercel.app/Headshot.jpg',
         width: 1200,
         height: 630,
         alt: 'Prodipta Banerjee - Software Engineer Portfolio',
@@ -35,22 +35,12 @@ export const metadata: Metadata = {
     type: 'website',
   },
 
-  twitter: {
-    card: 'summary_large_image',
-    site: '@yourTwitterHandle', // Replace with your actual Twitter handle
-    creator: '@yourTwitterHandle',
-    title: 'Prodipta Banerjee | Software Engineer & Web Developer',
-    description:
-      'Experienced in React, Next.js, Web3, and AWS. Passionate about creating scalable web applications.',
-    images: ['https://banerjee-prodipta.vercel.app/og-image.png'], // Update image URL
-  },
-
   alternates: {
     canonical: 'https://banerjee-prodipta.vercel.app',
   },
 
   icons: {
-    icon: '/favicon.ico', // Ensure you have a favicon for branding
+    icon: '/favicon.ico',
     shortcut: '/favicon.ico',
     apple: '/apple-touch-icon.png',
   },
