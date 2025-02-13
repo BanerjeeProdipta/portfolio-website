@@ -18,9 +18,6 @@ const Experience = () => {
       end: 'bottom bottom',
       pin: '.nav',
       pinSpacing: false,
-      markers: {
-        startColor: 'white',
-      },
     });
     experienceData.forEach((_, index) => {
       ScrollTrigger.create({
