@@ -5,12 +5,14 @@ import InterestsSection from './components/Interests';
 import TechStacksSection from './components/TechStacks';
 import FooterSection from './components/Footer';
 import Education from './components/Education';
+import Experience from './components/Experience';
 
 export default function Home() {
   return (
     <main className="overflow-x-hidden w-full">
       <HeroSection />
       <AboutMeSection />
+      <Experience />
       <InterestsSection />
       <TechStacksSection />
       <Education />

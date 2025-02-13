@@ -10,7 +10,7 @@ const AboutMeSection = () => {
   return (
     <SectionLayout title="About Me">
       <div className="flex flex-col items-center text-center space-y-8">
-        <div className="max-w-2xl text-gray-300 space-y-4 leading-relaxed">
+        <div className="max-w-2xl text-stone-300 space-y-4 leading-relaxed">
           <p>
             Hey there! I’m a{' '}
             <span className="font-semibold text-white">software engineer</span>{' '}
@@ -38,7 +38,7 @@ const AboutMeSection = () => {
         </div>
 
         {/* Quote */}
-        <p className="italic max-w-lg px-6 text-gray-400">
+        <p className="italic max-w-lg px-6 text-stone-400">
           “If there&apos;s a problem, there&apos;s always a solution—just a few
           lines of code away.”
         </p>
@@ -51,14 +51,14 @@ const AboutMeSection = () => {
 
         {/* Buttons with the blob effect */}
         <div className="relative group border border-stone-900 group-hover:invert transition duration-300 bg-gradient-to-t from-lime-300 to-transparent p-[0.5px] ease-linear delay-75">
-          <div className="relative z-10 bg-polka-dots bg-[size:10px_10px] bg-fixed bg-bgDark flex flex-wrap text-xs md:text-sm md:flex-row space-y-2 md:space-y-0 hover:text-lime-300 items-center justify-around w-full text-gray-800">
+          <div className="relative z-10 bg-polka-dots bg-[size:10px_10px] bg-fixed bg-bgDark flex flex-wrap text-xs md:text-sm md:flex-row space-y-2 md:space-y-0 hover:text-lime-300 items-center justify-around w-full text-stone-800">
             {contactLinks.map(({ href, icon: Icon, label }) => (
               <Link
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 text-gray-300 transition whitespace-nowrap px-4 py-2 hover:text-lime-300"
+                className="flex items-center gap-2 text-stone-300 transition whitespace-nowrap px-4 py-2 hover:text-lime-300"
               >
                 <Icon size={20} />
                 {label}

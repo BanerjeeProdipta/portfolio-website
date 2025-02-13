@@ -30,12 +30,10 @@ export default function Interests() {
 
     gsap.utils.toArray('.animated-path').forEach((path, index) => {
       const gradientPath = document.getElementById(`gradient-path-${index}`);
-      console.log(`Animating path ${index}`, { gradientPath, path });
 
       if (!gradientPath || !path) return;
 
       const pathLength = (path as SVGPathElement).getTotalLength();
-      console.log(`Path ${index} length:`, pathLength);
 
       gsap.set(gradientPath, {
         strokeDasharray: `${pathLength / 8} ${pathLength}`,
@@ -49,16 +47,14 @@ export default function Interests() {
           duration: 2,
           ease: 'power2.inOut',
         },
-        index * 2 // Stagger the animations by 2 seconds
+        index * 2
       );
     });
   }, [svgDimensions]);
 
-  // Get dimensions for positioning
   const { width, height } = svgDimensions;
   const midX = width / 2;
-  const branchY = (height / 2) * 0.35; // Branch halfway down before turning
-
+  const branchY = (height / 2) * 0.35;
   return (
     <SectionLayout title="My Interests">
       <div
@@ -73,7 +69,6 @@ export default function Interests() {
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            {/* Gradient Definitions */}
             {gradients.map((gradient) => (
               <linearGradient
                 key={gradient.id}
@@ -89,26 +84,20 @@ export default function Interests() {
             ))}
           </defs>
 
-          {/* Paths & Animated Gradient Strokes */}
           {interestsData.map((_, i) => {
             const div = divRefs.current[i];
             if (!div || !containerRef.current) return null;
             const rect = div.getBoundingClientRect();
             const containerRect = containerRef.current.getBoundingClientRect();
 
-            // Get card center position relative to container
             const endX = rect.left + rect.width / 2 - containerRect.left;
             const endY = rect.top - containerRect.top + 64;
 
-            // Pick gradient for the moving stroke
             const gradient = gradients[i % gradients.length];
 
-            // Path Data
             const pathData = `M${midX} -${
               height / 2
             } V${branchY} H${endX} V${endY}`;
-
-            console.log(`Path ${i} data:`, pathData);
 
             return (
               <g key={i}>
@@ -123,7 +112,6 @@ export default function Interests() {
                   strokeLinecap="round"
                   fill="none"
                 />
-                {/* Moving Gradient Stroke */}
                 <path
                   key={`gradient-path-${i}`}
                   id={`gradient-path-${i}`}
@@ -146,11 +134,11 @@ export default function Interests() {
               ref={(el) => {
                 divRefs.current[index] = el;
               }}
-              className="m-2 bg-polka-dots bg-[size:10px_10px] bg-fixed border border-stone-900 p-2 pt-4 text-center h-44 w-52 flex flex-col items-center shadow-lg"
+              className="m-2 bg-polka-dots bg-[size:10px_10px] bg-fixed border border-stone-900 p-2 pt-4 text-center h-52 w-52 flex flex-col items-center shadow-lg"
             >
               {interest.icon}
               <h3 className="text-md font-semibold my-2">{interest.title}</h3>
-              <p className="text-gray-300 text-sm">{interest.description}</p>
+              <p className="text-stone-300 text-sm">{interest.description}</p>
             </div>
           ))}
         </div>

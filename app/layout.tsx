@@ -55,8 +55,6 @@ export const metadata: Metadata = {
     apple: '/apple-touch-icon.png',
   },
 
-  manifest: '/site.webmanifest', // Helps with PWA and SEO
-
   keywords: [
     'Prodipta Banerjee',
     'Software Engineer',
@@ -92,8 +90,6 @@ export const metadata: Metadata = {
 
   referrer: 'origin-when-cross-origin',
 
-  themeColor: '#000000', // Match this with your website’s primary theme color
-
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -109,7 +105,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${poppins.className} relative antialiased flex flex-col prose-h2:font-medium prose-h2:text-xl prose-h2:lg:text-3xl bg-diagonal-lines bg-fixed border border-gray-500/20`}
+        className={`${inter.variable} ${poppins.className} relative antialiased flex flex-col prose-h2:font-medium prose-h2:text-xl prose-h2:lg:text-3xl bg-diagonal-lines bg-fixed border border-stone-500/20`}
       >
         {children}
       </body>

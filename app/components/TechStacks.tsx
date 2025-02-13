@@ -37,7 +37,10 @@ const technologies = [
     icon: <SiTypescript className="text-blue-400 text-4xl" />,
   },
   { name: 'React.js', icon: <FaReact className="text-cyan-400 text-4xl" /> },
-  { name: 'Next.js', icon: <SiNextdotjs className="text-gray-100 text-4xl" /> },
+  {
+    name: 'Next.js',
+    icon: <SiNextdotjs className="text-stone-100 text-4xl" />,
+  },
   { name: 'Node.js', icon: <FaNodeJs className="text-green-400 text-4xl" /> },
   {
     name: 'TailwindCSS',
@@ -49,7 +52,7 @@ const technologies = [
     icon: <SiPostgresql className="text-blue-500 text-4xl" />,
   },
   { name: 'Git', icon: <FaGitAlt className="text-red-400 text-4xl" /> },
-  { name: 'GitHub', icon: <SiGithub className="text-gray-100 text-4xl" /> },
+  { name: 'GitHub', icon: <SiGithub className="text-stone-100 text-4xl" /> },
   { name: 'Python', icon: <FaPython className="text-blue-400 text-4xl" /> },
   {
     name: 'TensorFlow',
@@ -66,7 +69,7 @@ const technologies = [
   },
   { name: 'OpenCV', icon: <SiOpencv className="text-blue-500 text-4xl" /> },
   { name: 'NumPy', icon: <SiNumpy className="text-blue-300 text-4xl" /> },
-  { name: 'Pandas', icon: <SiPandas className="text-gray-300 text-4xl" /> },
+  { name: 'Pandas', icon: <SiPandas className="text-stone-300 text-4xl" /> },
   { name: 'Jupyter', icon: <SiJupyter className="text-orange-500 text-4xl" /> },
   { name: 'Tableau', icon: <SiTableau className="text-blue-400 text-4xl" /> },
 ];
@@ -84,7 +87,7 @@ const TechStacksSection = () => {
             className="group flex flex-col w-32 h-32 items-center justify-center p-4 border border-stone-900 bg-polka-dots bg-[size:10px_10px] bg-fixed shadow-md transition-transform duration-300"
           >
             {tech.icon}
-            <p className="mt-2 px-2 text-gray-300 group-hover:text-white transition-all">
+            <p className="mt-2 px-2 text-stone-300 group-hover:text-white transition-all">
               {tech.name}
             </p>
           </div>
