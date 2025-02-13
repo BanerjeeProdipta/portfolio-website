@@ -40,14 +40,15 @@ const Education = () => {
         {
           opacity: 1,
           x: 0,
-          duration: 1,
-          stagger: 0.4,
+          duration: 2,
+          stagger: 1,
           scrollTrigger: {
             trigger: educationRef.current,
             start: 'top 80%',
             end: 'bottom 80%',
             scrub: true,
           },
+          ease: 'power2.in',
         }
       );
     }

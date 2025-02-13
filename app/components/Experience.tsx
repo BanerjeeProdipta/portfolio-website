@@ -55,9 +55,9 @@ const Experience = () => {
   return (
     <div className="relative">
       <SectionLayout title="Experience">
-        <div className="lg:flex hidden lg:flex-row w-full exp">
+        <div className="lg:flex lg:flex-row w-full exp">
           {/* Navigation Links (Fixed on the left side) */}
-          <div className="nav lg:w-1/3 flex flex-col z-10 mb-8 lg:mb-0">
+          <div className="nav hidden lg:w-1/3 lg:flex flex-col z-10 mb-8 lg:mb-0">
             <h2 className="experience-title pb-3">Experience</h2>
             {experienceData.map((experience, index) => (
               <button
@@ -87,7 +87,7 @@ const Experience = () => {
           </div>
 
           {/* Scrolling Sections (Right side for large screens) */}
-          <div className="lg:w-2/3 space-y-8">
+          <div className="w-full lg:w-2/3 space-y-8">
             {experienceData.map((experience, index) => (
               <div
                 id={`section-${index}`}
@@ -134,35 +134,6 @@ const Experience = () => {
               </div>
             ))}
           </div>
-        </div>
-
-        {/* Card layout for smaller screens */}
-        <div className="lg:hidden flex flex-col space-y-8">
-          {experienceData.map((experience, index) => (
-            <div key={index} className=" bg-bgDark p-6 space-y-4">
-              <p className="font-mono text-lg text-white">
-                {experience.company}
-              </p>
-              <h3 className="font-semibold text-white">{experience.role}</h3>
-              <p className="text-stone-200 text-xs italic">{experience.type}</p>
-              <p className="text-stone-400 text-sm">{experience.duration}</p>
-              <ul className="text-stone-100 text-sm list-disc pl-4 mt-2 space-y-2">
-                {experience.responsibilities.map((resp, i) => (
-                  <li key={i}>{resp}</li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-2 mt-2">
-                {experience.technologies.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="text-xs bg-stone-700 text-white px-2 py-1 rounded-full"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
         </div>
       </SectionLayout>
     </div>
