@@ -1,8 +1,9 @@
 import { IconType } from 'react-icons';
 import { BiPhone } from 'react-icons/bi';
-import { BsDribbble, BsGithub } from 'react-icons/bs';
+import { BsDribbble } from 'react-icons/bs';
 import { LiaLinkedin } from 'react-icons/lia';
-import { MdEmail } from 'react-icons/md';
+import { MdOutlineEmail } from 'react-icons/md';
+import { VscGithub } from 'react-icons/vsc';
 
 interface ContactLink {
   href: string;
@@ -22,7 +23,7 @@ const contactLinks: ContactLink[] = [
   {
     href: `mailto:${contact.email}`,
     label: contact.email,
-    icon: MdEmail,
+    icon: MdOutlineEmail,
   },
   {
     href: contact.linkedin,
@@ -37,7 +38,7 @@ const contactLinks: ContactLink[] = [
   {
     href: contact.github,
     label: 'GitHub',
-    icon: BsGithub,
+    icon: VscGithub,
   },
   {
     href: contact.dribble,

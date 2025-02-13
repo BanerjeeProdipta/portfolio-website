@@ -24,6 +24,7 @@ import {
   SiGithub,
 } from 'react-icons/si';
 import SectionLayout from './SectionLayout';
+import IconSphere from './IconSphere';
 
 const technologies = [
   { name: 'HTML', icon: <FaHtml5 className="text-orange-500 text-4xl" /> },
@@ -93,6 +94,7 @@ const TechStacksSection = () => {
           </div>
         ))}
       </div>
+      <IconSphere />
     </SectionLayout>
   );
 };

@@ -6,6 +6,7 @@ import TechStacksSection from './components/TechStacks';
 import FooterSection from './components/Footer';
 import Education from './components/Education';
 import Experience from './components/Experience';
+import Projects from './components/Projects';
 
 export default function Home() {
   return (
@@ -13,9 +14,10 @@ export default function Home() {
       <HeroSection />
       <AboutMeSection />
       <Experience />
+      <Projects />
       <InterestsSection />
-      <TechStacksSection />
       <Education />
+      <TechStacksSection />
       <FooterSection />
     </main>
   );
