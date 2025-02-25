@@ -46,7 +46,10 @@ const Experience = () => {
   const handleLinkClick = (index: number) => {
     setActiveIndex(index);
 
-    const targetSection = document.querySelector(`#section-${index}`);
+    const targetSection = document.querySelector(
+      `#section-${index}`
+    ) as HTMLElement;
+
     if (targetSection && containerRef.current) {
       const offsetX = targetSection.offsetLeft;
 
