@@ -36,14 +36,13 @@ const Projects = () => {
   return (
     <div ref={sectionRef}>
       <SectionLayout title="Projects">
-        <div className="w-full h-screen overflow-hidden">
+        <div className="w-full overflow-hidden">
           <div ref={containerRef} className="flex space-x-6 w-max px-6 pr-96">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="w-[350px] lg:w-[500px] h-[450px] rounded-lg bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed"
+                className="w-full max-w-xl h-96 rounded-lg bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed"
               >
-                {/* Header Section */}
                 <div className="border-b border-stone-700 pb-3 p-4">
                   <Link
                     href={project.link}
@@ -55,9 +54,7 @@ const Projects = () => {
                   </Link>
                 </div>
 
-                {/* Content Section */}
                 <div className="px-4 pt-4">
-                  {/* Responsibilities */}
                   <ul className="text-stone-300 text-sm list-disc space-y-2 pl-4">
                     {project.responsibilities.map((resp, i) => (
                       <li key={i} className="leading-relaxed">
@@ -66,7 +63,6 @@ const Projects = () => {
                     ))}
                   </ul>
 
-                  {/* Technology Stack */}
                   <div className="flex flex-wrap gap-2 mt-4">
                     {project.technologies.map((tech, i) => (
                       <span

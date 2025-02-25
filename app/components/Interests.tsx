@@ -136,9 +136,15 @@ export default function Interests() {
               }}
               className="m-2 bg-polka-dots bg-[size:10px_10px] bg-fixed border border-stone-900 p-2 pt-4 text-center h-52 w-52 flex flex-col items-center shadow-lg"
             >
-              {interest.icon}
-              <h3 className="text-md font-semibold my-2">{interest.title}</h3>
-              <p className="text-stone-300 text-sm">{interest.description}</p>
+              <div className="h-10 w-20 flex justify-center shrink-0">
+                {interest.icon}
+              </div>
+              <h3 className="text-sm lg:text-md font-semibold my-2">
+                {interest.title}
+              </h3>
+              <p className="text-stone-300 text-xs lg:text-sm">
+                {interest.description}
+              </p>
             </div>
           ))}
         </div>

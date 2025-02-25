@@ -2,7 +2,7 @@ const HeroSection = () => {
   return (
     <div className="md:mx-8 mt-6 mb-3 border border-stone-900/20 bg-black flex items-center flex-col md:flex-row">
       <div className="h-96 w-full space-y-8 flex flex-col items-center justify-center">
-        <h1 className="font-medium text-2xl md:text-6xl text-center tracking-wide leading-snug custom-border">
+        <h1 className="font-medium text-4xl lg:text-6xl text-center tracking-wide leading-snug custom-border">
           Prodipta
           <br />
           Banerjee
