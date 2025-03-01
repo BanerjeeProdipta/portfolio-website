@@ -55,7 +55,7 @@ const Experience = () => {
 
       gsap.to(containerRef.current, {
         duration: 1,
-        x: -offsetX, // Correct scrolling logic
+        x: -offsetX,
         ease: 'power2.inOut',
       });
     }
@@ -66,11 +66,11 @@ const Experience = () => {
       <SectionLayout title="Experience">
         <div className="lg:flex w-full exp">
           {/* Left Side: Navigation */}
-          <div className="nav hidden lg:w-80 min-w-80 lg:flex flex-col z-10 sticky top-0 min-h-screen p-4">
+          <div className="hidden lg:w-80 min-w-80 lg:flex flex-col z-10 sticky top-0 min-h-screen p-4">
             {experienceData.map((experience, index) => (
               <button
                 key={index}
-                className="nav-link flex flex-col items-start py-2 px-4 border border-stone-900 space-y-2"
+                className="flex flex-col items-start py-2 px-4 border border-stone-900 space-y-2"
                 onClick={() => handleLinkClick(index)}
               >
                 <p
@@ -89,7 +89,7 @@ const Experience = () => {
           </div>
 
           {/* Right Side: Horizontally Scrolling Content */}
-          <div className="overflow-hidden w-full">
+          <div className="overflow-hidden w-full h-screen max-h-[40rem]">
             <div
               ref={containerRef}
               className="flex space-x-6 w-max px-4 pr-[50rem]"
@@ -100,8 +100,8 @@ const Experience = () => {
                   key={index}
                   className={`experience-section w-full max-w-xl rounded-lg p-4 transition-all duration-500 bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed ${
                     index === activeIndex
-                      ? 'border-l-2 border-lime-300 shadow-lg'
-                      : 'opacity-50'
+                      ? 'border-2 border-lime-300 shadow-lg'
+                      : 'opacity-70'
                   }`}
                 >
                   {/* Header Section */}

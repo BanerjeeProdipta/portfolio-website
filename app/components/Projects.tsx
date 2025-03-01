@@ -13,19 +13,28 @@ const Projects = () => {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const scrollWidth = containerRef.current?.scrollWidth || 0;
-      const viewportWidth = window.innerWidth;
+      if (!containerRef.current) return;
 
+      const scrollHeight = containerRef.current.scrollHeight;
+      const viewportHeight = window.innerHeight;
+
+      // Apply scroll animation to each project card
       gsap.to(containerRef.current, {
-        x: () => `-${scrollWidth - viewportWidth}px`,
+        y: () => `-${scrollHeight - viewportHeight}px`,
         ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: () => `+=${scrollWidth - viewportWidth + viewportWidth / 2}`, // Ensures full visibility
+          end: () => `+=${scrollHeight - viewportHeight}`,
           scrub: 1,
           pin: true,
           anticipatePin: 1,
+          snap: {
+            snapTo: 'labelsDirectional',
+            duration: 0.5,
+            ease: 'power1.inOut',
+            delay: 0.1,
+          },
         },
       });
     });
@@ -34,21 +43,24 @@ const Projects = () => {
   }, []);
 
   return (
-    <div ref={sectionRef}>
+    <div ref={sectionRef} className="relative">
       <SectionLayout title="Projects">
-        <div className="w-full overflow-hidden">
-          <div ref={containerRef} className="flex space-x-6 w-max px-6 pr-96">
+        <div className="overflow-hidden flex flex-col items-center">
+          <div
+            ref={containerRef}
+            className="flex flex-col space-y-6 w-full items-center"
+          >
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="w-full max-w-xl h-96 rounded-lg bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed"
+                className="project-item w-full rounded-lg pb-8 bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed transform translate-y-10 transition-all duration-500"
               >
-                <div className="border-b border-stone-700 pb-3 p-4">
+                <div className="border-b border-stone-700 p-4">
                   <Link
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primaryPurple font-mono pb-4"
+                    className="text-primaryPurple font-mono my-6"
                   >
                     {project.title}
                   </Link>

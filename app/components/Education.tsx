@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import SectionLayout from './SectionLayout';
 import { LuGraduationCap } from 'react-icons/lu';
@@ -30,7 +30,7 @@ const Education = () => {
   const iconRefs = useRef<(HTMLDivElement | null)[]>([]);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (educationRef.current) {
       const elements = educationRef.current.children;
 
@@ -44,8 +44,8 @@ const Education = () => {
           stagger: 1,
           scrollTrigger: {
             trigger: educationRef.current,
-            start: 'top 80%',
-            end: 'bottom 80%',
+            start: 'top 90%',
+            end: 'bottom 50%',
             scrub: true,
           },
           ease: 'power2.in',
