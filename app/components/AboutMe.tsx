@@ -1,42 +1,58 @@
+'use client';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Observer } from 'gsap/Observer'; // Import the Observer plugin
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MdOutlineLocationOn } from 'react-icons/md';
 import SectionLayout from './SectionLayout';
 import { aboutMe } from '@/utils/data/aboutMe';
 import Link from 'next/link';
 
-gsap.registerPlugin(Observer); // Register the Observer plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const AboutMeSection = () => {
   const { location, origin, contactLinks } = aboutMe;
   const experienceYears = new Date().getFullYear() - 2020;
 
+  const sectionRef = useRef(null);
   const textRef = useRef(null);
   const quoteRef = useRef(null);
   const contactRef = useRef(null);
-  const linksRef = useRef(null);
-  const sectionRef = useRef(null);
+  const linksRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const observer = Observer.create({
-      target: sectionRef.current, // The section we want to observe
-      type: 'scroll', // Observe scroll position
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 80%', // Start when 80% of section is visible
+          toggleActions: 'play none none none', // Play once
+        },
+      });
 
-      // Optional: Adjust sensitivity and other options here
-      tolerance: 0.1, // Can be adjusted for when you want to trigger
-    });
+      tl.fromTo(
+        [textRef.current, quoteRef.current, contactRef.current],
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.3, ease: 'power3.out' }
+      ).fromTo(
+        linksRef.current?.children as HTMLCollectionOf<HTMLElement>,
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.2, ease: 'power2.out' },
+        '-=0.5'
+      );
+    }, sectionRef);
 
-    // Cleanup when the component is unmounted
-    return () => observer.kill();
+    return () => ctx.revert(); // Cleanup to prevent memory leaks
   }, []);
 
   return (
     <SectionLayout title="About Me">
-      <div className="flex flex-col items-center text-center space-y-8">
+      <div
+        ref={sectionRef}
+        className="flex flex-col items-center text-center space-y-8"
+      >
         <div
           ref={textRef}
-          className="max-w-2xl text-stone-300 space-y-4 leading-relaxed"
+          className="max-w-2xl text-stone-300 space-y-4 leading-relaxed opacity-0"
         >
           <p>
             Hey there! I’m a{' '}
@@ -65,11 +81,16 @@ const AboutMeSection = () => {
         </div>
 
         {/* Quote */}
-        <p ref={quoteRef} className="italic max-w-lg px-6 text-stone-400">
+        <p
+          ref={quoteRef}
+          className="italic max-w-lg px-6 text-stone-400 opacity-0"
+        >
           “If there&apos;s a problem, there&apos;s always a solution—just a few
           lines of code away.”
         </p>
-        <p ref={contactRef} className="font-mono">
+
+        {/* Contact */}
+        <p ref={contactRef} className="font-mono opacity-0">
           I am currently accepting freelance work, so don’t hesitate to{' '}
           <button className="bg-lime-300/10 inline-block text-lime-400 px-2 py-1">
             get in touch

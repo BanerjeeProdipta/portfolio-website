@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 
@@ -30,30 +31,30 @@ const HeroSection = () => {
       .fromTo(
         sloganRef.current,
         { opacity: 0, y: 10 },
-        { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' }
+        { opacity: 1, y: 0, duration: 0.4, delay: 0.2, ease: 'power2.out' }
       );
   }, []);
 
   return (
-    <div className="md:mx-8 mt-6 mb-3 border border-stone-900/20 bg-black flex items-center flex-col md:flex-row">
-      <div className="h-96 w-full space-y-8 flex flex-col items-center justify-center">
+    <div className="md:mx-8 mt-6 mb-3 py-20 lg:py-32 border border-stone-900/20 bg-black flex items-center flex-col md:flex-row">
+      <div className="w-full space-y-8 flex flex-col items-center justify-center">
         <h1
           ref={nameRef}
-          className="font-medium text-4xl lg:text-6xl text-center tracking-wide leading-snug custom-border"
+          className="font-medium text-5xl lg:text-7xl text-center tracking-wide leading-snug custom-border"
         >
           <span className="block opacity-0">Prodipta</span>
           <span className="block opacity-0">Banerjee</span>
         </h1>
         <p
           ref={chipRef}
-          className="inline-block max-w-44 whitespace-nowrap text-center font-mono w-full px-2 py-0.5 text-xs rounded-full border border-primaryPurple bg-primaryPurple/20 text-primaryPurple opacity-0"
+          className="inline-block max-w-44 lg:max-w-56 whitespace-nowrap text-center font-mono w-full px-2 py-0.5 text-xs lg:text-sm rounded-full border border-primaryPurple bg-primaryPurple/20 text-primaryPurple opacity-0"
         >
           Software Engineer
         </p>
 
         <p
           ref={sloganRef}
-          className="font-medium text-sm custom-border text-lime-300 opacity-0"
+          className="font-medium text-sm lg:text-lg custom-border text-lime-300 opacity-0"
         >
           Crafting Code, Building Futures!
         </p>

@@ -5,14 +5,14 @@ import { ScrollTrigger, ScrollToPlugin } from 'gsap/all';
 import SectionLayout from './SectionLayout';
 import { experienceData } from '@/utils/data/experience';
 
-gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-
 const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
     if (!containerRef.current) return;
 
     const sections = gsap.utils.toArray<HTMLElement>('.experience-section');

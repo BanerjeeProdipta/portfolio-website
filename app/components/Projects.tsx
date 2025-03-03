@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -5,13 +6,13 @@ import Link from 'next/link';
 import SectionLayout from './SectionLayout';
 import { projects } from '@/utils/data/projects';
 
-gsap.registerPlugin(ScrollTrigger);
-
 const Projects = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
       if (!containerRef.current) return;
 
