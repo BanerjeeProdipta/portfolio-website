@@ -1,9 +1,10 @@
 'use client';
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { experienceData } from '@/utils/data/experience';
 import SectionLayout from './SectionLayout';
+import Link from 'next/link';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,24 +16,31 @@ const Experience = () => {
   useEffect(() => {
     if (!sidebarRef.current || !containerRef.current) return;
 
+    // Pin sidebar
     gsap.to(containerRef.current, {
       scrollTrigger: {
-        trigger: sidebarRef.current, // The right side scrollable content
+        trigger: sidebarRef.current,
         start: 'top top',
-        end: 'bottom bottom',
+        end: 'bottom center',
         pin: sidebarRef.current,
-        pinSpacing: false, // Prevent unwanted spacing issues
+        pinSpacing: false,
       },
     });
-  }, []);
 
-  const handleLinkClick = (index: number) => {
-    setActiveIndex(index);
-    const targetSection = document.querySelector(`#section-${index}`);
-    if (targetSection) {
-      targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+    const sections = document.querySelectorAll('.experience-section');
+
+    sections.forEach((section, index) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: 'top center',
+        end: 'bottom center',
+        onEnter: () => setActiveIndex(index),
+        onEnterBack: () => setActiveIndex(index),
+      });
+    });
+
+    return () => ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+  }, []);
 
   return (
     <SectionLayout title="Experience">
@@ -40,13 +48,13 @@ const Experience = () => {
         {/* Left Side: Navigation (Pinned with GSAP) */}
         <div
           ref={sidebarRef}
-          className="hidden lg:flex flex-col w-80 min-w-80 p-4 bg-bgDark shadow-lg"
+          className="hidden lg:flex flex-col w-80 min-w-80 p-4 mb-12 pb-12"
         >
           {experienceData.map((experience, index) => (
-            <button
+            <Link
               key={index}
               className="flex flex-col items-start py-2 px-4 border border-stone-900 space-y-2"
-              onClick={() => handleLinkClick(index)}
+              href={`#section-${index}`}
             >
               <p
                 className={`font-medium text-sm font-mono transition-colors ${
@@ -57,29 +65,31 @@ const Experience = () => {
               </p>
               <h3 className="font-semibold">{experience.role}</h3>
               <p className="text-stone-400 text-sm">{experience.duration}</p>
-            </button>
+            </Link>
           ))}
         </div>
 
         {/* Right Side: Vertically Scrolling Content */}
-        <div ref={containerRef} className="flex-1 w-full p-4 space-y-6">
+        <div ref={containerRef} className="flex-1 w-full py-2 space-y-6">
           {experienceData.map((experience, index) => (
             <div
               id={`section-${index}`}
               key={index}
-              className={`experience-section w-full rounded-lg p-4 transition-all duration-500 bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed ${
-                index === activeIndex
-                  ? 'border-2 border-lime-300 shadow-lg'
-                  : 'opacity-70'
-              }`}
+              className="experience-section w-full bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed"
             >
               {/* Header Section */}
-              <div className="border-b border-stone-700 pb-3">
+              <div className="border-b border-stone-700 m-2 p-4">
                 <h3 className="text-lg font-bold text-white mb-4">
                   {experience.role}
                 </h3>
                 <div className="flex justify-between items-center">
-                  <p className="text-sm text-primaryPurple font-mono">
+                  <p
+                    className={`text-sm font-mono ${
+                      activeIndex === index
+                        ? 'text-lime-300'
+                        : 'text-primaryPurple'
+                    }`}
+                  >
                     {experience.company}
                   </p>
                   <p className="text-xs text-stone-400 italic">
