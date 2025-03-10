@@ -48,7 +48,7 @@ const Experience = () => {
         {/* Left Side: Navigation (Pinned with GSAP) */}
         <div
           ref={sidebarRef}
-          className="hidden lg:flex flex-col w-80 min-w-80 p-4 mb-12 pb-12"
+          className="hidden lg:flex flex-col w-80 min-w-80 p-4 mb-12"
         >
           {experienceData.map((experience, index) => (
             <Link
@@ -70,7 +70,7 @@ const Experience = () => {
         </div>
 
         {/* Right Side: Vertically Scrolling Content */}
-        <div ref={containerRef} className="flex-1 w-full py-2 space-y-6">
+        <div ref={containerRef} className="flex-1 w-full py-2 space-y-4">
           {experienceData.map((experience, index) => (
             <div
               id={`section-${index}`}
