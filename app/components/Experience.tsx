@@ -12,6 +12,7 @@ const Experience = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const sidebarRef = useRef(null);
   const containerRef = useRef(null);
+  const sectionsRef = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!sidebarRef.current || !containerRef.current) return;
@@ -27,9 +28,25 @@ const Experience = () => {
       },
     });
 
-    const sections = document.querySelectorAll('.experience-section');
+    // Right Side: Fade-in & Slide-up Animation
+    sectionsRef.current.forEach((section, index) => {
+      gsap.fromTo(
+        section,
+        { opacity: 0, x: 50 },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: index * 0.2,
+          scrollTrigger: {
+            trigger: section,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
 
-    sections.forEach((section, index) => {
       ScrollTrigger.create({
         trigger: section,
         start: 'top center',
@@ -75,7 +92,10 @@ const Experience = () => {
             <div
               id={`section-${index}`}
               key={index}
-              className="experience-section w-full bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed"
+              ref={(el) => {
+                sectionsRef.current[index] = el;
+              }}
+              className="experience-section w-full bg-bgDark bg-polka-dots bg-[size:10px_10px] bg-fixed opacity-0"
             >
               {/* Header Section */}
               <div className="border-b border-stone-700 m-2 p-4">
